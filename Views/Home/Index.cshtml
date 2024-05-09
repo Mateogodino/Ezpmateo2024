@@ -1,0 +1,179 @@
+﻿@{
+    ViewData["Title"] = "Always Gym";
+}
+<link rel="stylesheet" href="~/css/site">
+
+<body class="body">
+    @* Inicio carousel *@
+    <div id="carouselExampleIndicators" class="carousel slide">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://i.blogs.es/410bab/danielle-cerullo-cqfnt66ttzm-unsplash/1366_2000.jpeg"
+                    class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="https://media.revistagq.com/photos/65b12cd1df908a3c3a4d7373/16:9/w_2560%2Cc_limit/fitness%2520portada.jpg"
+                    class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="https://e00-expansion.uecdn.es/assets/multimedia/imagenes/2023/04/28/16826376372454.jpg"
+                    class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+    @* fin carousel *@
+
+    <hr style="color: white;">
+
+
+    <div >
+        @* Inicio sobre nosotros *@
+        <h3 class="subTitulos" style="color: white;">Sobre nosotros</h3>
+        <p style="color: white;">
+            Always Gym es una marca asociada a la actividad física con más de 25 años de experiencia en el mercado. Con
+            origen en el barrio de Palermo, Buenos Aires, hemos creado un servicio en constante crecimiento y evolución,
+            atendiendo las diferentes necesidades de nuestros afiliados y en contacto con las tendencias mundiales en
+            capacitación. Hoy contamos con tres sedes que funcionan de forma independiente con servicios específicos
+            dependiendo del público al que van dirigidos.
+            @* Fin sobre nosotros *@
+
+            @*Inicio acordion *@
+        <div>
+            <div  class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <div>
+                        <h2 class="accordion-header">
+                            <button style="background-color: black;"  class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">  Politicas de
+                                calidad:
+                            </button>
+                        </h2>
+                    </div>
+                    
+                    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <ul>
+                                <li>
+                                    Mejorar la calidad de vida de nuestros afiliados a través de la actividad física
+                                    practicada de forma segura y regular, cumpliendo todas las expectativas físicas y
+                                    emocionales.
+                                </li>
+                                <li>
+                                    Service Attitude: Nuestro compromiso es guiarte constantemente durante tu formación,
+                                    asesorarte en la selección de actividades y acompañarte en todo momento para que tu
+                                    experiencia sea siempre efectiva, segura y divertida.
+                                </li>
+                                <li>
+                                    Respect: Valoramos y reconocemos a cada individuo con sus deseos y expectativas, sus
+                                    objetivos y preferencias a la hora de hacer ejercicio, cuidando las normas de
+                                    conducta
+                                    entre todos.
+                                </li>
+                                <li>
+                                    Suitability: Buscamos constantemente ampliar nuestro conocimiento para brindar
+                                    respuestas a cada nueva necesidad de nuestros socios, manteniéndonos competentes en
+                                    la
+                                    función que cada uno desarrolla con un alto sentido de proactividad.
+                                </li>
+                                <li>
+                                    Versatility: Así como nuestro cuerpo cambia constantemente, nos esforzamos en crear
+                                    soluciones efectivas para cada situación especial, combinando conocimiento técnico y
+                                    creatividad.
+                                </li>
+                                <li>
+                                    Constant Evolution: Todos nuestros procesos y servicios son auditados periódicamente
+                                    en
+                                    la búsqueda de mejoras constantes y poder anticiparnos a las necesidades de nuestros
+                                    socios.
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            @* Fin acordion *@
+
+    </div>
+    @* Fin dobre nosotros *@
+
+    <hr style="color: white;">
+
+    @*Cards Nuestras actividades *@
+    <h3 class="subTitulos" style="color: white;">Nuestras actividades</h3>
+
+
+
+    <div class="contenedor">
+
+        <div class="card" style="width: 18rem;">
+            <img src="https://vidafit.movix.com/wp-content/uploads/2022/02/VF_2022_02_24.jpg" class="card-img-top"
+                alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Sala de musculación</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                    the
+                    card's content.</p>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+            <img src="https://bienestarysalud.info/wp-content/uploads/2018/09/0476-Crossfit-deporte.jpg"
+                class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">CrossFit</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                    the
+                    card's content.</p>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjWfuQMqEllNXKtXG4JDEA7keKXiBsGIKmh0A_hcqYrg&s"
+                class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Clases de pilates</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                    the
+                    card's content.</p>
+            </div>
+        </div>
+        <div class="card" style="width: 18rem;">
+            <img src="https://co.fitness24seven.com/media/gpskprjz/pt-konsultation.png?cc=0,0.2059608394851961,0,0.349703223014804&width=750&height=500&rnd=133537999793330000"
+                class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">Clases personalizadas</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of
+                    the
+                    card's content.</p>
+            </div>
+        </div>
+
+    </div>
+    @* Fin cards nuestras actividades *@
+
+    <hr>
+    
+
+    <footer>
+
+    </footer>
+
+
+</body>

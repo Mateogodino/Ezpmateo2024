@@ -1,0 +1,116 @@
+@{
+  ViewData["Title"] = "Ejercicios Fisicos";
+}
+
+<link rel="stylesheet" href="~/css/style-ejercicios.css">
+<link rel="stylesheet" href="~/css/style-ejerciciosFisicos.css">
+
+<h5 class="display-4 titulo centrar" style="text-shadow: 0 0 15px black;">Ejercicios Fisicos</h5>
+
+
+
+
+<div>
+
+ <div class="mb-2" >
+  <button type="button" onclick="GetEjerciciosFisicos()" class="btn  btn-icono">
+    <i class="bi bi-arrow-counterclockwise"></i>
+  </button>
+  <button type="button" class="btn  btn-icono" onclick="NuevoRegistro()" data-bs-toggle="modal" data-bs-target="#ModalTipoEjercicio">
+    <i class="bi bi-plus-circle"></i>
+  </button>
+</div>
+
+<table class="table mi-tabla">
+  <thead >
+    <tr>
+      <th class="text-center align-middle" style="border-bottom: 2px solid rgba(200, 4, 4, 0.411);"><div class="centrar"><p>Ejercicio</p></div></th>
+      <th class="text-center align-middle" style="border-bottom: 2px solid rgba(200, 4, 4, 0.411);"><div class="centrar"><p>Inicio</p></div></th>
+      <th class="text-center align-middle" style="border-bottom: 2px solid rgba(200, 4, 4, 0.411);"><div class="centrar"><p>Fin</p></div></th>
+      <th class="text-center align-middle" style="border-bottom: 2px solid rgba(200, 4, 4, 0.411);"><div class="centrar"><p>Estado al <br>Empezar</p></div></th>
+      <th class="text-center align-middle" style="border-bottom: 2px solid rgba(200, 4, 4, 0.411);"><div class="centrar"><p>Estado al <br>Terminar</p></div></th>
+      <th class="text-center align-middle" style="border-bottom: 2px solid rgba(200, 4, 4, 0.411);"><div class="centrar"><p>Obserbaciones</p></div></th>
+      <th style="border-bottom: 2px solid rgba(200, 4, 4, 0.411);"></th>
+      <th style="border-bottom: 2px solid rgba(200, 4, 4, 0.411);"></th>
+    </tr>
+  </thead>
+  <tbody id="tbody-ejerciciosFisicos" >
+  </tbody>
+</table>
+
+</div>
+
+
+
+<!-- Modal -->
+
+<div class="modal fade " id="ModalTipoEjercicio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog ">
+    <div class="modal-content mi-modal">
+      <div class="modal-header">
+        <h5 class="modal-title titulo" id="ModalTitulo"></h5>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <div class="row">
+              <input type="hidden" id="EjercicioFisicoID" value="0">
+              <div class="mb-3 col-md-12 centrar flex-column">
+                <label for="IdEjercicio" class="form-label titulo">Tipo de Ejerciocio</label>
+                @Html.DropDownList("IdEjercicio", null, htmlAttributes: new
+                  {
+                    @class = "select-transparent form-control input-transparent"
+                  })
+              </div>
+
+              <hr>
+
+              <div class="mb-3 col-6 centrar flex-column">
+                <label for="Inicio" class="form-label titulo">Inicio</label>
+                <input type="datetime-local" id="Inicio" class="form-control input-transparent input-circulo" onchange="expanded(this)"/>
+              </div>
+
+              <div class="mb-3 col-6 centrar flex-column">
+                <label for="EstadoInicio" style="margin-right: 2.5rem;" class="form-label titulo">Estado Emocional Inicio</label>
+                @Html.DropDownList("EstadoInicio", null, htmlAttributes: new
+                  {
+                    @class = "form-control input-transparent"
+                  })
+              </div>
+
+              <hr>
+
+              <div class="mb-3 col-6 centrar flex-column">
+                <label for="Fin" class="form-label titulo">Fin</label>
+                <input type="datetime-local" id="Fin" class="form-control input-transparent input-circulo" onchange="expanded(this)"/>
+              </div>
+
+              <div class="mb-3 col-6 centrar flex-column">
+                <label for="EstadoFin" style="margin-right: 2.5rem;" class="form-label titulo">Estado Emocional Fin</label>
+                @Html.DropDownList("EstadoFin", null, htmlAttributes: new { @class = "form-control input-transparent" })
+              </div>
+
+              <hr>
+
+              <div class="mb-3 col-12">
+                <div class="mb-3 col-6 ce">
+                  <label for="Observaciones" class="form-label titulo">Obserbaciones</label>
+                  <textarea id="Observaciones" name="Observaciones" class="textarea-transparent"></textarea>
+                </div>
+              </div>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" onclick="LimpiarModal()" class="btn btn-secondary"
+          data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" onclick="GuardarRegistro()" class="btn btn-primary test">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<script src="~/js/ejerciciosfisicos.js"></script>
