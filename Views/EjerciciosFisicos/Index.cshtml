@@ -1,0 +1,102 @@
+@{
+  ViewData["Title"] = "Ejercicios Fisicos";
+}
+
+@* <link rel="stylesheet" href="~/css/style-ejercicios.css">
+<link rel="stylesheet" href="~/css/style-ejerciciosFisicos.css"> *@
+
+<div class="text-center">
+    <h1 class="display-4" style="text-shadow: 0 0 5px black;">Ejercicios Fisicos</h1>
+</div>
+
+
+
+<div class="mb-2">
+ @* <div class="mb-2" >
+  <button type="button" onclick="GetEjerciciosFisicos()" class="btn btn-primary">
+    <i class="bi bi-arrow-counterclockwise"></i>Refrescar
+  </button> *@
+  <button type="button" class="btn btn-primary" onclick="NuevoRegistro()" data-bs-toggle="modal" data-bs-target="#ModalEjerciciosFisicos">
+    <i class="bi bi-plus-circle"></i>Nuevo Registro
+  </button>
+</div>
+
+@* tabla *@
+<table class="table table-dark table-bordered table-striped table-condensed">
+  <thead >
+    <tr>
+      <th class="text-center align-middle"><div class="centrar"><p>Ejercicio</p></div></th>
+      <th class="text-center align-middle"><div class="centrar"><p>Inicio</p></div></th>
+      <th class="text-center align-middle"><div class="centrar"><p>Fin</p></div></th>
+      <th class="text-center align-middle"><div class="centrar"><p>Estado al <br>Empezar</p></div></th>
+      <th class="text-center align-middle"><div class="centrar"><p>Estado al <br>Terminar</p></div></th>
+      <th class="text-center align-middle"><div class="centrar"><p>Obserbaciones</p></div></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="tbody-ejerciciosFisicos" >
+  </tbody>
+</table>
+
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalEjerciciosFisicos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalTitulo"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="row">
+            <input type="hidden" id="EjerciciosFisicosID" value="0" />
+            <div class="mb-3 col-12">
+              <label for="TipoEjercicioID" class="form-label">Tipo de Ejercicio</label>
+              @Html.DropDownList("TipoEjercicioID", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+
+            <div class="mb-3 col-6">
+              <label for="Inicio" class="form-label">Inicio</label>
+              <input type="datetime-local" id="FechaInicio" class="form-control"
+                value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm")" />
+            </div>
+
+            <div class="mb-3 col-6">
+              <label for="EstadoEmocionalInicio" class="form-label">Estado Emocional Inicio</label>
+              @Html.DropDownList("EstadoEmocionalInicio", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+
+            <div class="mb-3 col-6">
+              <label for="Fin" class="form-label">Fin</label>
+              <input type="datetime-local" id="FechaFin" class="form-control"
+                value="@DateTime.Now.ToString("yyyy-MM-dd HH:mm")" />
+            </div>
+
+            <div class="mb-3 col-6">
+              <label for="EstadoEmocionalFin" class="form-label">Estado Emocional Fin</label>
+              @Html.DropDownList("EstadoEmocionalFin", null, htmlAttributes: new { @class = "form-control" })
+            </div>
+            <div>
+              <textarea name="" id="Observaciones" placeholder="Descripción"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" onclick="LimpiarModal()" class="btn btn-secondary"
+          data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" onclick="GuardarRegistro()" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+@section scripts {
+<script src="~/js/ejerciciosfisico-1.0.0.js"></script>
+}

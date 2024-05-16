@@ -174,7 +174,7 @@ namespace Ezpmateo2024.Migrations
                 name: "EjerciciosFisicos",
                 columns: table => new
                 {
-                    EjercicioFisicoID = table.Column<int>(type: "int", nullable: false)
+                    EjerciciosFisicosID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TipoEjercicioID = table.Column<int>(type: "int", nullable: false),
                     Inicio = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -185,7 +185,7 @@ namespace Ezpmateo2024.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EjerciciosFisicos", x => x.EjercicioFisicoID);
+                    table.PrimaryKey("PK_EjerciciosFisicos", x => x.EjerciciosFisicosID);
                     table.ForeignKey(
                         name: "FK_EjerciciosFisicos_TipoEjercicios_TipoEjercicioID",
                         column: x => x.TipoEjercicioID,

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "TEZA4C9jcHGV8WOOdcZZ7z5vBU/lABYfQ9rUx9qjHGA=",
+  "Hash": "tYZyS9edkj735ij747EVgF3fW/KO3feJhe0SjkKBeqY=",
   "Source": "Ezpmateo2024",
   "BasePath": "_content/Ezpmateo2024",
   "Mode": "Default",
@@ -1212,25 +1212,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
-    },
-    {
-      "Identity": "C:\\Users\\laura\\Desktop\\Ezpmateo2024\\wwwroot\\css\\StylesTipoEjercicios.css",
-      "SourceId": "Ezpmateo2024",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\laura\\Desktop\\Ezpmateo2024\\wwwroot\\",
-      "BasePath": "_content/Ezpmateo2024",
-      "RelativePath": "css/StylesTipoEjercicios.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\css\\StylesTipoEjercicios.css"
     },
     {
       "Identity": "C:\\Users\\laura\\Desktop\\Ezpmateo2024\\wwwroot\\favicon.ico",

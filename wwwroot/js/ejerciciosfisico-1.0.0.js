@@ -1,10 +1,10 @@
+window.onload = MostrarListadoEjercicios();
 
 
-
-function GetEjerciciosFisicos() {{
+function MostrarListadoEjercicios() {
     $.ajax({
         // la URL para la petición
-        url: '../../EjerciciosFisicos/ListadoEjercicios',
+        url: '../../EjerciciosFisicos/MostrarListadoEjercicios',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
         data: {  },
@@ -16,7 +16,7 @@ function GetEjerciciosFisicos() {{
         // la respuesta es pasada como argumento a la función
         success: function (Ejercicios) {
 
-            $("#ModalTipoEjercicio").modal("hide");
+            $("#ModalEjerciciosFisicos").modal("hide");
             LimpiarModal();
             let contenidoTabla = ``;
             
@@ -26,23 +26,24 @@ function GetEjerciciosFisicos() {{
                 console.log(Ejercicio);
                 
                 contenidoTabla += `
-                <tr${Index === Ejercicios.length - 1 ? ' class="ultima-fila fila-resaltar"' : ''} class="fila-resaltar">
-                    <td class="borde-td align-middle"><div><p>${Ejercicio.ejercicioNombre}</p></div></td>
-                    <td class="borde-td align-middle" style="max-width: 8rem;"><div><p>${Ejercicio.inicioString}</p></div></td>
-                    <td class="borde-td align-middle" style="max-width: 8rem;"><div><p>${Ejercicio.finString}</p></div></td>
-                    <td class="borde-td align-middle"><div><p>${Ejercicio.estadoInicio}</p></div></td>
-                    <td class="borde-td align-middle"><div><p>${Ejercicio.estadoFin}</p></div></td>
-                    <td class="borde-td align-middle" style=" max-width: 12rem;"><div><p>${Ejercicio.observaciones}</p></div></td>
-                    <td class="text-center">
-                    <button type="button" class="btn btn-success" onclick="AbrirModalEditar(${Ejercicio.idEjercicioFisico})">
-                    <i class="bi bi-pencil-square"></i>
-                    </button>
-                    </td>
-                    <td class="text-center">
-                    <button type="button" class="btn btn-danger" onclick="EliminarRegistro(${Ejercicio.idEjercicioFisico})"><i class="bi bi-trash3"></i<
-                    </button>
-                    </td>
-                </tr>
+                <tr>
+                <td class="text-center">${Ejercicio.ejercicioDescripcion}</td>
+                <td class="text-center">${Ejercicio.inicioString}</td>
+                <td class="text-center">${Ejercicio.finString}</td>
+                <td class="text-center">${Ejercicio.estadoEmocionalInicio}</td>
+                <td class="text-center">${Ejercicio.estadoEmocionalFin}</td>
+                <td class="text-center">${Ejercicio.observaciones}</td>
+                <td class="text-center">
+                <button type="button" class="btn btn-primary shadow" onclick="AbrirEditar(${Ejercicio.ejerciciosFisicosID})">
+                Editar
+                </button>
+                </td>
+                <td class="text-center">
+                <button type="button" class="btn btn-danger shadow" onclick="EliminarEjercicio(${Ejercicio.ejerciciosFisicosID})">
+                Eliminar
+                </button>
+                </td>
+            </tr>
              `;
 
             });
@@ -58,9 +59,9 @@ function GetEjerciciosFisicos() {{
             console.log('Disculpe, existió un problema al cargar el listado');
         }
     });
-}}
+}
 
-window.onload = GetEjerciciosFisicos
+
 
 function NuevoRegistro(){
     $("#ModalTitulo").text("Nuevo Tipo de Ejercicio");
@@ -68,12 +69,12 @@ function NuevoRegistro(){
 
 function GuardarRegistro(){
     //GUARDAMOS EN UNA VARIABLE LO ESCRITO EN EL INPUT DESCRIPCION
-    let idEjerciciofisico = document.getElementById("EjercicioFisicoID").value;
-    let tipoEjercicioID = document.getElementById("IdEjercicio").value;
-    let inicio = document.getElementById("Inicio").value;
-    let fin = document.getElementById("Fin").value;
-    let estadoInicio = document.getElementById("EstadoInicio").value;
-    let estadoFin = document.getElementById("EstadoFin").value;
+    let ejercicioFisicoID = document.getElementById("EjerciciosFisicosID").value;
+    let tipoEjercicioID = document.getElementById("TipoEjercicioID").value;
+    let inicio = document.getElementById("FechaInicio").value;
+    let estadoEmocionalInicio = document.getElementById("EstadoEmocionalInicio").value;
+    let fin = document.getElementById("FechaFin").value;
+    let estadoEmocionalFin = document.getElementById("EstadoEmocionalFin").value;
     let observaciones = document.getElementById("Observaciones").value;
 
     //POR UN LADO PROGRAMAR VERIFICACIONES DE DATOS EN EL FRONT CUANDO SON DE INGRESO DE VALORES Y NO SE NECESITA VERIFICAR EN BASES DE DATOS
@@ -83,8 +84,12 @@ function GuardarRegistro(){
         url: '../../EjerciciosFisicos/GuardarEjercicioFisico',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: { idEjerciciofisico: idEjerciciofisico,tipoEjercicioID: tipoEjercicioID, 
-                inicio: inicio, fin: fin, estadoInicio: estadoInicio, estadoFin: estadoFin, 
+        data: { ejercicioFisicoID: ejercicioFisicoID,
+                tipoEjercicioID: tipoEjercicioID, 
+                inicio: inicio,
+                fin: fin, 
+                estadoEmocionalInicio: estadoEmocionalInicio, 
+                estadoEmocionalFin: estadoEmocionalFin, 
                 observaciones: observaciones},
         // especifica si será una petición POST o GET
         type: 'POST',
@@ -97,7 +102,7 @@ function GuardarRegistro(){
             if(resultado != ""){
                 alert(resultado);
             }
-            GetEjerciciosFisicos();
+            MostrarListadoEjercicios();
         },
 
         // código a ejecutar si la petición falla;
@@ -111,23 +116,23 @@ function GuardarRegistro(){
 
 
   function LimpiarModal(){
-    document.getElementById("IdEjercicio").value = 0;
-    document.getElementById("Inicio").value = "";
-    document.getElementById("Inicio").classList.remove("expanded");
-    document.getElementById("EstadoInicio").value = 0;
-    document.getElementById("Fin").value = "";
-    document.getElementById("Fin").classList.remove("expanded");
-    document.getElementById("EstadoFin").value = 0;
+
+    document.getElementById("EjerciciosFisicosID").value = 0;
+    document.getElementById("TipoEjercicioID").value = 0;
+    document.getElementById("FechaInicio").value = "";
+    document.getElementById("EstadoEmocionalInicio").value = 0;
+    document.getElementById("FechaFin").value = "";
+    document.getElementById("EstadoEmocionalFin").value = 0;
     document.getElementById("Observaciones").value = "";
 }
 
-function AbrirModalEditar(idEjerciciofisico){
+function AbrirEditar(ejerciciosFisicosID){
     $.ajax({
         // la URL para la petición
-        url: '../../EjerciciosFisicos/GetEjerciciosFisicos',
+        url: '../../EjerciciosFisicos/TraerListaEjercicios',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: { idEjerciciofisico: idEjerciciofisico},
+        data: { ejerciciosFisicosID: ejerciciosFisicosID},
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
@@ -136,15 +141,13 @@ function AbrirModalEditar(idEjerciciofisico){
         // la respuesta es pasada como argumento a la función
         success: function (EjercicioFisico) {
             let ejercicio = EjercicioFisico[0];
-            document.getElementById("EjercicioFisicoID").value = idEjerciciofisico;
-            $("#ModalTitulo").text("Editar Tipo de Ejercicio");
-            document.getElementById("IdEjercicio").value = ejercicio.tipoEjercicioID;
-            document.getElementById("Inicio").value = ejercicio.inicio;
-            document.getElementById("Inicio").classList.add("expanded");
-            document.getElementById("Fin").value = ejercicio.fin;
-            document.getElementById("Fin").classList.add("expanded");
-            document.getElementById("EstadoInicio").value = ejercicio.estadoInicio;
-            document.getElementById("EstadoFin").value = ejercicio.estadoFin;
+            document.getElementById("EjerciciosFisicosID").value = ejerciciosFisicosID;
+            $("#ModalTitulo").text("Editar ejercicio fisico");
+            document.getElementById("TipoEjercicioID").value = ejercicio.tipoEjercicioID;
+            document.getElementById("FechaInicio").value = ejercicio.inicio;
+            document.getElementById("FechaFin").value = ejercicio.fin;
+            document.getElementById("EstadoEmocionalInicio").value = ejercicio.EstadoEmocionalInicio;
+            document.getElementById("EstadoEmocionalFin").value = ejercicio.EstadoEmocionalFin;
             document.getElementById("Observaciones").value = ejercicio.observaciones;
 
             $("#ModalTipoEjercicio").modal("show");
@@ -159,14 +162,14 @@ function AbrirModalEditar(idEjerciciofisico){
     });
 }
 
-function EliminarRegistro(IdEjercicioFisico){
-    console.log(IdEjercicioFisico);
+function EliminarEjercicio(EjerciciosFisicosID){
+    console.log(EjerciciosFisicosID);
     $.ajax({
         // la URL para la petición
-        url: '../../EjerciciosFisicos/DeleteEjercicioFisico',
+        url: '../../EjerciciosFisicos/EliminarEjercicioFisico',
         // la información a enviar
         // (también es posible utilizar una cadena de datos)
-        data: { IdEjercicioFisico: IdEjercicioFisico},
+        data: { EjerciciosFisicosID: EjerciciosFisicosID},
         // especifica si será una petición POST o GET
         type: 'POST',
         // el tipo de información que se espera de respuesta
@@ -174,7 +177,7 @@ function EliminarRegistro(IdEjercicioFisico){
         // código a ejecutar si la petición es satisfactoria;
         // la respuesta es pasada como argumento a la función
         success: function (resultado) {           
-            GetEjerciciosFisicos();
+            MostrarListadoEjercicios();
         },
 
         // código a ejecutar si la petición falla;
@@ -188,25 +191,25 @@ function EliminarRegistro(IdEjercicioFisico){
 }
 
 
-  function expanded(input) {
-    if (input.value !== "") {
-        input.classList.add("expanded"); // Agregar la clase si hay una fecha cargada
-    } else {
-        input.classList.remove("expanded"); // Quitar la clase si no hay fecha cargada
-    }
-}
+//   function expanded(input) {
+//     if (input.value !== "") {
+//         input.classList.add("expanded"); // Agregar la clase si hay una fecha cargada
+//     } else {
+//         input.classList.remove("expanded"); // Quitar la clase si no hay fecha cargada
+//     }
+// }
 
 
-$(document).ready(function() {
-    $('#fecha').change(function() {
-      $(this).removeClass('input-circulo'); // Quita la clase de círculo
-    });
-  });
+// $(document).ready(function() {
+//     $('#fecha').change(function() {
+//       $(this).removeClass('input-circulo'); // Quita la clase de círculo
+//     });
+//   });
 
-  function mostrarFecha() {
-    var fechaInput = document.getElementById("fecha");
-    var fechaSeleccionada = fechaInput.value;
-    if (fechaSeleccionada !== "") {
-      fechaInput.setAttribute("value", fechaSeleccionada); // Establecer el valor del input como la fecha seleccionada
-    }
-  }
+//   function mostrarFecha() {
+//     var fechaInput = document.getElementById("fecha");
+//     var fechaSeleccionada = fechaInput.value;
+//     if (fechaSeleccionada !== "") {
+//       fechaInput.setAttribute("value", fechaSeleccionada); // Establecer el valor del input como la fecha seleccionada
+//     }
+//   }

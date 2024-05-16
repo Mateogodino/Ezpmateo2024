@@ -22,13 +22,13 @@ namespace Ezpmateo2024.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Ezpmateo2024.Models.EjercicioFisico", b =>
+            modelBuilder.Entity("Ezpmateo2024.Models.EjerciciosFisicos", b =>
                 {
-                    b.Property<int>("EjercicioFisicoID")
+                    b.Property<int>("EjerciciosFisicosID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EjercicioFisicoID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EjerciciosFisicosID"));
 
                     b.Property<int>("EstadoEmocionalFin")
                         .HasColumnType("int");
@@ -48,7 +48,7 @@ namespace Ezpmateo2024.Migrations
                     b.Property<int>("TipoEjercicioID")
                         .HasColumnType("int");
 
-                    b.HasKey("EjercicioFisicoID");
+                    b.HasKey("EjerciciosFisicosID");
 
                     b.HasIndex("TipoEjercicioID");
 
@@ -276,7 +276,7 @@ namespace Ezpmateo2024.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Ezpmateo2024.Models.EjercicioFisico", b =>
+            modelBuilder.Entity("Ezpmateo2024.Models.EjerciciosFisicos", b =>
                 {
                     b.HasOne("Ezpmateo2024.Models.TipoEjercicio", "TipoEjercicio")
                         .WithMany("EjerciciosFisicos")

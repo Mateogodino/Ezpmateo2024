@@ -9,12 +9,12 @@ using Microsoft.AspNetCore.Authorization;
 namespace Ezpmateo2024.Controllers;
 
 [Authorize]
-public class EjerciciosFisicosController : Controller 
+public class EjerciciosFisicosController : Controller
 {
     private ApplicationDbContext _context;
 
     //Comstructor
-    public  EjerciciosFisicosController(ApplicationDbContext context)
+    public EjerciciosFisicosController(ApplicationDbContext context)
 
     {
         _context = context;
@@ -22,9 +22,9 @@ public class EjerciciosFisicosController : Controller
 
     public IActionResult Index()
     {
-        
 
-         // Crear una lista de SelectListItem que incluya el elemento adicional
+
+        // Crear una lista de SelectListItem que incluya el elemento adicional
         var selectListItems = new List<SelectListItem>
         {
             new SelectListItem { Value = "0", Text = "[SELECCIONE...]" }
@@ -41,18 +41,124 @@ public class EjerciciosFisicosController : Controller
         }));
 
         // Pasar la lista de opciones al modelo de la vista
-        ViewBag.EstadoInicio = selectListItems.OrderBy(t => t.Text).ToList();
-        ViewBag.EstadoFin = selectListItems.OrderBy(t => t.Text).ToList();
+        ViewBag.EstadoEmocionalInicio = selectListItems.OrderBy(t => t.Text).ToList();
+        ViewBag.EstadoEmocionalFin = selectListItems.OrderBy(t => t.Text).ToList();
 
         var EjerciciosFisicos = _context.TipoEjercicios.ToList();
-        EjerciciosFisicos.Add(new TipoEjercicio{TipoEjercicioID = 0, Descripcion = "[SELECCIONE...]"});
-        ViewBag.IdEjercicio = new SelectList(EjerciciosFisicos.OrderBy(c => c.Descripcion), "TipoEjercicioID", "Nombre");
-        
+        EjerciciosFisicos.Add(new TipoEjercicio { TipoEjercicioID = 0, Descripcion = "[SELECCIONE...]" });
+        ViewBag.TipoEjercicioID = new SelectList(EjerciciosFisicos.OrderBy(c => c.Descripcion), "TipoEjercicioID", "Descripcion");
+
         return View();
     }
 
+    public JsonResult MostrarListadoEjercicios(int? id)
+    {
+        List<VistaEjercicioFisico> MostrarEjercicios = new List<VistaEjercicioFisico>();
 
-    public JsonResult GetEjerciciosFisicos(int? EjerciciosFisicosID)
+        var ejerciciosFisicos = _context.EjerciciosFisicos.ToList();
+        if (id != null)
+        {
+            ejerciciosFisicos = ejerciciosFisicos.Where(e => e.EjerciciosFisicosID == id).ToList();
+        }
+
+        var Ejercicio = _context.TipoEjercicios.ToList();
+
+        foreach (var ejercicioFisico in ejerciciosFisicos)
+        {
+            var ejercicio = Ejercicio.Where(e => e.TipoEjercicioID == ejercicioFisico.TipoEjercicioID).Single();
+
+            var mostrarEjercicios = new VistaEjercicioFisico
+            {
+                EjerciciosFisicosID = ejercicioFisico.EjerciciosFisicosID,
+                TipoEjercicioID = ejercicioFisico.TipoEjercicioID,
+                EjercicioDescripcion = ejercicio.Descripcion,
+                InicioString = ejercicioFisico.Inicio.ToString("dd/MM/yyyy HH:mm"),
+                FinString = ejercicioFisico.Fin.ToString("dd/MM/yyyy HH:mm"),
+                EstadoEmocionalInicio = Enum.GetName(typeof(EstadoEmocional), ejercicioFisico.EstadoEmocionalInicio),
+                EstadoEmocionalFin = Enum.GetName(typeof(EstadoEmocional), ejercicioFisico.EstadoEmocionalFin),
+                Observaciones = ejercicioFisico.Observaciones
+            };
+            MostrarEjercicios.Add(mostrarEjercicios);
+        }
+
+        return Json(MostrarEjercicios);
+    }
+
+    // public JsonResult GetEjerciciosFisicos(int? EjerciciosFisicosID)
+    // {
+    //     var EjerciciosFisicos = _context.EjerciciosFisicos.ToList();
+
+    //     if (EjerciciosFisicosID != null)
+    //     {
+    //         EjerciciosFisicos = EjerciciosFisicos.Where(e => e.EjerciciosFisicosID == EjerciciosFisicosID).ToList();
+    //     }
+
+    //     return Json(EjerciciosFisicos.ToList());
+
+    // }
+
+    public JsonResult GuardarEjercicioFisico(int EjerciciosFisicosID, int TipoEjercicioID, DateTime Inicio, DateTime Fin, EstadoEmocional EstadoEmocionalInicio, EstadoEmocional EstadoEmocionalFin, string Observaciones)
+    {
+        //1- VERIFICAMOS SI REALMENTE INGRESO ALGUN CARACTER Y LA VARIABLE NO SEA NULL
+        //INGRESA SI ESCRIBIO SI O SI       
+        string resultado = "";
+        if (EjerciciosFisicosID != null)
+        {
+            //2- VERIFICAR SI ESTA EDITANDO O CREANDO NUEVO REGISTRO
+            if (EjerciciosFisicosID == 0)
+            {
+                var EjercicioFisico = new EjerciciosFisicos
+                {
+                    EjerciciosFisicosID = EjerciciosFisicosID,
+                    TipoEjercicioID = TipoEjercicioID,
+                    Inicio = Inicio,
+                    Fin = Fin,
+                    EstadoEmocionalInicio = EstadoEmocionalInicio,
+                    EstadoEmocionalFin = EstadoEmocionalFin,
+                    Observaciones = Observaciones
+                };
+                _context.Add(EjercicioFisico);
+                _context.SaveChanges();
+            }
+
+            else
+            {
+                var ejercicioFisicoEditar = _context.EjerciciosFisicos.Find(EjerciciosFisicosID);
+                if (ejercicioFisicoEditar != null)
+                {
+                    {
+                        ejercicioFisicoEditar.TipoEjercicioID = TipoEjercicioID;
+                        ejercicioFisicoEditar.Inicio = Inicio;
+                        ejercicioFisicoEditar.Fin = Fin;
+                        ejercicioFisicoEditar.EstadoEmocionalInicio = EstadoEmocionalInicio;
+                        ejercicioFisicoEditar.EstadoEmocionalFin = EstadoEmocionalFin;
+                        ejercicioFisicoEditar.Observaciones = Observaciones;
+                        _context.SaveChanges();
+
+                        resultado = "Ejercicio físico actualizado correctamente";
+                    }
+                }
+            }
+        }
+        return Json(resultado);
+    }
+
+    //  public JsonResult GetEstadoEmocional(){
+    //     var EstadoEmocional = Enum.GetNames(typeof(EstadoEmocional)).ToList();
+    //     return Json(EstadoEmocional.ToList());
+    // }
+
+
+    public JsonResult EliminarEjercicioFisico(int EjerciciosFisicosID)
+    {
+        var EjercicioFisico = _context.EjerciciosFisicos.Find(EjerciciosFisicosID);
+        _context.Remove(EjercicioFisico);
+        _context.SaveChanges();
+
+        return Json(true);
+    }
+
+    public JsonResult TraerListaEjercicios(int? EjerciciosFisicosID)
     {
         var EjerciciosFisicos = _context.EjerciciosFisicos.ToList();
 
@@ -62,65 +168,5 @@ public class EjerciciosFisicosController : Controller
         }
 
         return Json(EjerciciosFisicos.ToList());
-
     }
-
-    public JsonResult GuardarEjercicioFisico(int IdEjercicioFisico, int TipoEjercicioID, DateTime Inicio, DateTime Fin, EstadoEmocional EstadoInicio, EstadoEmocional EstadoFin, string Observaciones)
-    {
-        //1- VERIFICAMOS SI REALMENTE INGRESO ALGUN CARACTER Y LA VARIABLE NO SEA NULL
-        //INGRESA SI ESCRIBIO SI O SI       
-        string resultado = "";
-        if (IdEjercicioFisico != null)
-        {
-            //2- VERIFICAR SI ESTA EDITANDO O CREANDO NUEVO REGISTRO
-            if (IdEjercicioFisico == 0)
-            {
-                var EjercicioFisico = new EjerciciosFisicos
-                {
-                    EjerciciosFisicosID = IdEjercicioFisico,
-                    TipoEjercicioID = TipoEjercicioID,
-                    Inicio = Inicio,
-                    Fin = Fin,
-                    EstadoEmocionalInicio = EstadoInicio,
-                    EstadoEmocionalFin = EstadoFin,
-                    Observaciones = Observaciones
-                };
-                _context.Add(EjercicioFisico);
-                _context.SaveChanges();
-            }   
-
-            else{
-                var ejercicioFisicoEditar = _context.EjerciciosFisicos.Where(e => e.EjerciciosFisicosID == IdEjercicioFisico).SingleOrDefault();
-                
-                {
-                    var existeEjercicioFisico = _context.EjerciciosFisicos.Where(e => e.EjerciciosFisicosID == IdEjercicioFisico).Count(); {
-                        ejercicioFisicoEditar.TipoEjercicioID = TipoEjercicioID;
-                        ejercicioFisicoEditar.Inicio = Inicio;
-                        ejercicioFisicoEditar.Fin = Fin;
-                        ejercicioFisicoEditar.EstadoEmocionalInicio = EstadoInicio;
-                        ejercicioFisicoEditar.EstadoEmocionalFin = EstadoFin;
-                        ejercicioFisicoEditar.Observaciones = Observaciones;
-                        _context.SaveChanges();
-                    }
-                }
-            }
-        }
-        return Json(resultado);
-    }
-    
-     public JsonResult GetEstadoEmocional(){
-        var EstadoEmocional = Enum.GetNames(typeof(EstadoEmocional)).ToList();
-        return Json(EstadoEmocional.ToList());
-    }
-
-
-    public JsonResult DeleteEjercicioFisico(int IdEjercicioFisico)
-    {
-        var EjercicioFisico = _context.EjerciciosFisicos.Find(IdEjercicioFisico);
-        _context.Remove(EjercicioFisico);
-        _context.SaveChanges();
-
-        return Json(true);
-    }
-    
 }

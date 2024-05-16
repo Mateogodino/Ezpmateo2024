@@ -53,9 +53,11 @@ namespace Ezpmateo2024.Models
     {   
         public int EjerciciosFisicosID { get ; set; }
         public int TipoEjercicioID { get; set; }
-        public int Anio {get; set; }  
-        public string? Mes { get; set; }
-        public int? Dia { get; set; }
-        public int CantidadMinutos { get; set; }
+        public object? EjercicioDescripcion { get; internal set; }
+        public string InicioString { get; internal set; }
+        public string FinString { get; internal set; }
+        public string? EstadoEmocionalInicio { get; internal set; }
+        public string? EstadoEmocionalFin { get; internal set; }
+        public string? Observaciones { get; internal set; }
     }
 }

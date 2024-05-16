@@ -19,7 +19,7 @@ html {
 
 /* estilos home index */
 .body {
-  margin: top 3px; ;
+  margin: top 3px;
   padding: 0;
   margin-bottom: 60px;
   /* background-image: url(https://i.blogs.es/410bab/danielle-cerullo-cqfnt66ttzm-unsplash/1366_2000.jpeg); */
@@ -33,6 +33,25 @@ html {
   color: rgb(0, 0, 202) ;
 
 }
+/* Inicio boton flotante home */
+.whatsapp {
+  position:fixed;
+  width:60px;
+  height:60px;
+  bottom:40px;
+  right:40px;
+  background-color:#25d366;
+  color:#FFF;
+  border-radius:50px;
+  text-align:center;
+  font-size:30px;
+  z-index:100;
+}
+
+.whatsapp-icon {
+  margin-top:13px;
+}
+/* Fin boton flotante home */
 
 /* Estilo Carusel inicio */
 .d-block {
@@ -138,3 +157,66 @@ html {
   color: aliceblue;
 }
 /* Fin acordion */
+
+/* Inicio estilo Login y registro */
+.bodylogin{
+  background: url(https://www.aquasportclubs.com/wp-content/uploads/2018/12/clase-dirigida-skillmill.jpg); 
+  background-color: black;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position:center ;
+}
+.login{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sections{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  background-position: center;
+  background-size: cover;
+}
+.contenedorLogin{
+  position: relative;
+  width: 400px;
+  border: 5px solid rgba(250, 250, 250);
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  height: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.opcioneslogin{
+  color: whitesmoke
+}
+
+.bodyRegister{
+  background: url(https://www.aquasportclubs.com/wp-content/uploads/2018/12/clase-dirigida-skillmill.jpg); 
+  background-color: black;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position:center ;
+}
+.Register{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.contenedorregister{
+  position: relative;
+  width: 400px;
+  border: 5px solid rgba(250, 250, 250);
+  border-radius: 20px;
+  backdrop-filter: blur(15px);
+  height: 450px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Fin login y registro */

@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Ezpmateo2024")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+47daf1887efe82de220bfd608f82fbb70f765dc4")]
 [assembly: System.Reflection.AssemblyProductAttribute("Ezpmateo2024")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Ezpmateo2024")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -2,20 +2,22 @@
 @model LoginModel
 
 @{
-    ViewData["Title"] = "Inicio de sesión/ Registrarse";
+    ViewData["Title"] = "Inicio de sesión";
 }
 <link rel="stylesheet" href="~/css/site">
 
+<body class="bodylogin">
 
-<h1 class="text-center">@ViewData["Title"]</h1>
+    <div class="login ">
+        <section class="sections">
+            
+            <div class="contenedorLogin">
 
-
- <div class="text-center">
-    <div class="row">
-        <div class="col-md-4">
-            <section>
                 <form id="account" method="post">
-                    <hr />
+
+                    <h3 class="h3" style="color: white;">Iniciar Sesión</h3>
+                    <hr style="color: white;">
+
                     <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                     <div class="form-floating mb-3">
                         <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true"
@@ -40,23 +42,27 @@
                             sesión</button>
                     </div>
                     <div>
-                        <p>
+                        <p class="opcioneslogin">
                             <a id="forgot-password" asp-page="./ForgotPassword">¿olvidaste tu contraseña?</a>
                         </p>
-                        <p>
+                        <p class="opcioneslogin">
                             <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Registrar un nuevo
                                 usuario</a>
                         </p>
-                        <p>
-                            <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Reenviar confirmación por
-                                correo electrónico</a>
+                        <p class="opcioneslogin">
+                            <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Reenviar confirmación
+                                por correo electrónico</a>
                         </p>
                     </div>
                 </form>
-            </section>
-        </div>
+
+            </div>
+
+        </section>
     </div>
-</div>
+
+
+</body>
 
 
 @section Scripts {
